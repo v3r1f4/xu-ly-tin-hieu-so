@@ -40,3 +40,14 @@ else
 end
 
 ```
+
+#### 4.3.1. Xác định đáp ứng lối ra của hệ thống
+```matlab
+N = 10;
+a = [1 -2]; % a_k
+b = [1 -3]; % b_k
+n = 0:N;
+x = 2.^n; % Tín hiệu lối vào
+x_in = filtic(b,a,1,0); % Giá trị khởi tạo
+y = filter(b,a,x,x_in); % Đáp ứng lối ra
+```
