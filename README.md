@@ -1,5 +1,16 @@
 # Xử lý tín hiệu số
 
+## Chương 2
+#### 2.2.2. Phép toán phụ thuộc vào biến thời gian
+- Tích chập
+```matlab
+function [y, n] = sig_conv(a,na,b,nb)
+y = conv(a,b);
+n1 = na(1) + nb(1);
+n2 = na(end) + nb(end);
+n = n1:n2;
+```
+
 ## Chương 4
 #### 4.2.1. Tính chất của hệ thống
 - Kiểm tra tính nhân quả và ổn định của hệ thống
