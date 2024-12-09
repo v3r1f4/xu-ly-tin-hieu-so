@@ -51,3 +51,37 @@ x = 2.^n; % Tín hiệu lối vào
 x_in = filtic(b,a,1,0); % Giá trị khởi tạo
 y = filter(b,a,x,x_in); % Đáp ứng lối ra
 ```
+
+
+#### 5.2.1. Thiết kế cấu trúc tối ưu kiểu nối tiếp
+```matlab
+function [b0, B, A] = cautrucnoitiep(b, a)
+    % Xác định nghiệm của tử số và mẫu số
+    num_roots = cplxpair(roots(b)); % Nghiệm của tử số
+    den_roots = cplxpair(roots(a)); % Nghiệm của mẫu số
+
+    % Xử lý tử số
+    if mod(length(num_roots), 2) ~= 0
+        num_roots = [num_roots; 0]; % Bổ sung nghiệm 0 nếu số nghiệm là lẻ
+    end
+    
+    B = []; % Ma trận chứa các đa thức bậc 2 từ nghiệm tử số
+    for i = 1:2:length(num_roots)
+        B = [B; poly(num_roots(i:i+1).')]; % Nhóm từng cặp nghiệm
+    end
+
+    % Xử lý mẫu số
+    if mod(length(den_roots), 2) ~= 0
+        den_roots = [den_roots; 0]; % Bổ sung nghiệm 0 nếu số nghiệm là lẻ
+    end
+    
+    A = []; % Ma trận chứa các đa thức bậc 2 từ nghiệm mẫu số
+    for i = 1:2:length(den_roots)
+        A = [A; poly(den_roots(i:i+1).')]; % Nhóm từng cặp nghiệm
+    end
+
+    % Hệ số bậc 0 của tử số chia mẫu số
+    b0 = b(1) / a(1);
+end
+
+```
